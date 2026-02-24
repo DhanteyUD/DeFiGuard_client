@@ -9,13 +9,13 @@ const messages = [
   { line1: "DeFi's AI", line2: "Risk Shield" },
   { line1: "Multi-Chain", line2: "Guardian" },
   { line1: "Autonomous", line2: "Defender" },
-  { line1: "Real-Time", line2: "Fraud Detection" },
+  { line1: "Fraud", line2: "Detection" },
 ];
 
 const FACE_H = 200;
 const HALF = FACE_H / 2;
 
-const DISPLAY_DURATION = 3000;
+const DISPLAY_DURATION = 5000;
 
 const chains = ["◎ Solana", "⟠ ETH", "BNB", "MATIC", "ARB", "BASE", "+7 more"];
 
@@ -72,7 +72,9 @@ export default function HeroSection() {
           ease: "none",
           repeat: -1,
           delay: 1,
-          onStart: () => gsap.set(scanRef.current, { opacity: 0.65 }),
+          onStart: () => {
+            gsap.set(scanRef.current, { opacity: 0.65 });
+          },
         },
       );
 
@@ -155,7 +157,7 @@ export default function HeroSection() {
       />
 
       {/* ── Main content ── */}
-      <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-28 pb-16">
+      <div className="relative z-10 text-center max-w-5xl mx-auto px-6 py-28">
         {/* Badge */}
         <motion.div
           className="inline-flex items-center gap-2 bg-[#a52126]/10 border border-[#a52126]/30 rounded-full px-4 py-1.5 mb-10"
@@ -216,13 +218,13 @@ export default function HeroSection() {
                   }}
                 >
                   <span
-                    className="block font-bold leading-none tracking-tight text-6xl md:text-7xl lg:text-8xl text-white font-mono"
+                    className="block font-bold leading-none tracking-tight text-[45px] md:text-7xl lg:text-8xl text-white font-mono"
                     style={{ marginBottom: "0.1em" }}
                   >
                     {msg.line1}
                   </span>
                   <span
-                    className="block font-bold leading-none tracking-tight text-6xl md:text-7xl lg:text-8xl text-[#a52126] font-mono"
+                    className="block font-bold leading-none tracking-tight text-[45px] md:text-7xl lg:text-8xl text-[#a52126] font-mono"
                     style={{ textShadow: "0 0 60px rgba(165,33,38,0.45)" }}
                   >
                     {msg.line2}
@@ -233,7 +235,6 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Message index dots */}
         <motion.div
           className="flex justify-center gap-2 mb-8"
           initial={{ opacity: 0 }}
@@ -246,15 +247,15 @@ export default function HeroSection() {
               className="w-1.5 h-1.5 rounded-full transition-all duration-300"
               style={{
                 background: i === msgIdx ? "#a52126" : "rgba(255,255,255,0.2)",
-                transform: i === msgIdx ? "scale(1.4)" : "scale(1)",
+                transform: i === msgIdx ? "scale(1.2)" : "scale(1)",
+                width: i === msgIdx ? "12px" : "6px",
               }}
             />
           ))}
         </motion.div>
 
-        {/* Subtitle */}
         <motion.p
-          className="text-white/55 text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed"
+          className="text-white/55 text-sm md:text-base max-w-2xl mx-auto mb-10 leading-relaxed font-mono"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.6 }}
@@ -275,7 +276,7 @@ export default function HeroSection() {
         >
           <motion.a
             href="#agent"
-            className="flex items-center gap-2 bg-[#a52126] text-white font-semibold px-8 py-3.5 rounded-xl animate-pulse-glow transition-colors hover:bg-[#c42b31]"
+            className="flex items-center gap-2 bg-[#a52126] text-white font-semibold px-8 py-3.5 text-sm rounded-xl animate-pulse-glow transition-colors hover:bg-[#c42b31]"
             whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -284,7 +285,7 @@ export default function HeroSection() {
           </motion.a>
           <motion.a
             href="#features"
-            className="flex items-center gap-2 border border-white/18 hover:border-[#a52126]/50 text-white/75 hover:text-white px-8 py-3.5 rounded-xl transition-all duration-250"
+            className="flex items-center gap-2 border border-white/18 hover:border-[#a52126]/50 text-white/75 hover:text-white px-8 py-3.5 text-sm rounded-xl transition-all duration-250"
             whileHover={{ scale: 1.04 }}
             whileTap={{ scale: 0.97 }}
           >
@@ -295,23 +296,25 @@ export default function HeroSection() {
 
         {/* Chain pills */}
         <motion.div
-          className="flex flex-wrap items-center justify-center gap-2"
+          className="flex flex-col md:flex-row flex-wrap items-center justify-center gap-2"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1.6 }}
         >
           <span className="text-white/30 text-xs mr-1">Monitoring:</span>
-          {chains.map((chain, i) => (
-            <motion.span
-              key={chain}
-              className="text-xs px-2.5 py-1 bg-white/[0.04] border border-white/10 rounded-full text-white/40 hover:border-[#a52126]/40 hover:text-white/70 transition-colors cursor-default"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 1.6 + i * 0.06 }}
-            >
-              {chain}
-            </motion.span>
-          ))}
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            {chains.map((chain, i) => (
+              <motion.span
+                key={chain}
+                className="text-xs px-2.5 py-1 bg-white/4 border border-white/10 rounded-full text-white/40 hover:border-[#a52126]/40 hover:text-white/70 transition-colors cursor-default"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.6 + i * 0.06 }}
+              >
+                {chain}
+              </motion.span>
+            ))}
+          </div>
         </motion.div>
       </div>
 

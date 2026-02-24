@@ -34,7 +34,7 @@ html {
 body {
   background-color: #282632;
   color: #ffffff;
-  font-family: var(--font-geist-sans), sans-serif;
+  font-family: var(--font-geist-mono), sans-serif;
   overflow-x: hidden;
 }
 
