@@ -10,6 +10,9 @@
   --red-subtle: rgba(165, 33, 38, 0.08);
   --border-red: rgba(165, 33, 38, 0.22);
   --text-muted: rgba(255, 255, 255, 0.5);
+}
+
+@theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -25,7 +28,7 @@ html {
 body {
   background-color: #282632;
   color: #ffffff;
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
   overflow-x: hidden;
 }
 
