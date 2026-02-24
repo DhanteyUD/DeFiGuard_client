@@ -4,12 +4,12 @@ import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion } from "framer-motion";
-import { Link2, Brain, Clock, ShieldAlert } from "lucide-react";
+import { Link, Brain, Clock, ShieldAlert } from "lucide-react";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 13, suffix: "", label: "Chains Monitored", icon: Link2 },
+  { value: 13, suffix: "", label: "Chains Monitored", icon: Link },
   { value: 5,  suffix: "", label: "Autonomous AI Agents", icon: Brain },
   { value: 24, suffix: "/7", label: "Real-time Monitoring", icon: Clock },
   { value: 100, suffix: "+", label: "Risk Indicators", icon: ShieldAlert },
@@ -52,8 +52,8 @@ export default function StatsBar() {
       className="relative py-14 bg-[#1e1c28] border-y border-[#a52126]/15 overflow-hidden"
     >
       {/* Subtle red glow bar */}
-      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#a52126]/50 to-transparent" />
-      <div className="absolute inset-x-0 bottom-0 h-[1px] bg-gradient-to-r from-transparent via-[#a52126]/50 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#a52126]/50 to-transparent" />
+      <div className="absolute inset-x-0 bottom-0 h-px bg-linear-to-r from-transparent via-[#a52126]/50 to-transparent" />
 
       <div className="max-w-5xl mx-auto px-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
@@ -80,7 +80,7 @@ export default function StatsBar() {
                 </div>
 
                 {/* Label */}
-                <div className="text-white/45 text-xs font-medium tracking-wide">
+                <div className="text-white/45 text-xs font-medium tracking-wide font-mono">
                   {stat.label}
                 </div>
               </motion.div>
