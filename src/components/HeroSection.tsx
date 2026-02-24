@@ -64,7 +64,7 @@ export default function HeroSection() {
           top: "100%", opacity: 0,
           duration: 9, ease: "none",
           repeat: -1, delay: 1,
-          onStart: () => gsap.set(scanRef.current, { opacity: 0.65 }),
+          onStart: () => { gsap.set(scanRef.current, { opacity: 0.65 }); },
         }
       );
 
@@ -103,15 +103,15 @@ export default function HeroSection() {
       {/* ── Ambient orbs ── */}
       <div
         ref={orb1Ref}
-        className="absolute -top-16 -left-32 w-[520px] h-[520px] rounded-full bg-[#a52126] opacity-[0.07] blur-[100px] pointer-events-none"
+        className="absolute -top-16 -left-32 w-130 h-130 rounded-full bg-[#a52126] opacity-[0.07] blur-[100px] pointer-events-none"
       />
       <div
         ref={orb2Ref}
-        className="absolute bottom-0 -right-40 w-[480px] h-[480px] rounded-full bg-[#a52126] opacity-[0.06] blur-[90px] pointer-events-none"
+        className="absolute bottom-0 -right-40 w-120 h-120 rounded-full bg-[#a52126] opacity-[0.06] blur-[90px] pointer-events-none"
       />
       <div
         ref={orb3Ref}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] rounded-full bg-[#a52126] opacity-[0.03] blur-[80px] pointer-events-none"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-175 h-75 rounded-full bg-[#a52126] opacity-[0.03] blur-[80px] pointer-events-none"
       />
 
       {/* ── Scan line ── */}
@@ -127,7 +127,6 @@ export default function HeroSection() {
 
       {/* ── Main content ── */}
       <div className="relative z-10 text-center max-w-5xl mx-auto px-6 pt-28 pb-16">
-
         {/* Badge */}
         <motion.div
           className="inline-flex items-center gap-2 bg-[#a52126]/10 border border-[#a52126]/30 rounded-full px-4 py-1.5 mb-10"
@@ -135,9 +134,13 @@ export default function HeroSection() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
         >
-          <Zap className="w-3.5 h-3.5 text-[#a52126] flex-shrink-0" />
-          <span className="text-xs text-white/75 font-medium">
-            Powered by ASI:One &nbsp;·&nbsp; SingularityNET MeTTa
+          <Zap className="w-3.5 h-3.5 text-[#a52126] shrink-0" />
+          <span className="flex gap-1 md:gap-3 text-xs text-white/75 font-medium font-mono">
+            <p className="flex">
+              <span className="hidden md:block mr-1.5">Powered by </span>ASI:One
+            </p>
+            <p>·</p>
+            <p>SingularityNET MeTTa</p>
           </span>
           <span className="w-1.5 h-1.5 bg-[#a52126] rounded-full animate-pulse" />
         </motion.div>
@@ -170,8 +173,10 @@ export default function HeroSection() {
           transition={{ delay: 1.1, duration: 0.6 }}
         >
           AI-powered, multi-agent portfolio risk monitoring across{" "}
-          <span className="text-white font-semibold">Solana + 12 EVM chains</span>.
-          Real-time fraud detection. Autonomous alerts.
+          <span className="text-white font-semibold">
+            Solana + 12 EVM chains
+          </span>
+          . Real-time fraud detection. Autonomous alerts.
         </motion.p>
 
         {/* CTAs */}
