@@ -1,26 +1,100 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --bg-primary: #282632;
+  --bg-secondary: #1e1c28;
+  --bg-card: #2e2b3a;
+  --red: #a52126;
+  --red-hover: #c42b31;
+  --red-glow: rgba(165, 33, 38, 0.35);
+  --red-subtle: rgba(165, 33, 38, 0.08);
+  --border-red: rgba(165, 33, 38, 0.22);
+  --text-muted: rgba(255, 255, 255, 0.5);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: #282632;
+  color: #ffffff;
+  font-family: var(--font-geist-sans), Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* ─── Scrollbar ─────────────────────────────── */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #1e1c28; }
+::-webkit-scrollbar-thumb { background: #a52126; border-radius: 4px; }
+
+/* ─── Grid background ────────────────────────── */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(165, 33, 38, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(165, 33, 38, 0.055) 1px, transparent 1px);
+  background-size: 52px 52px;
+}
+
+/* ─── Animations ─────────────────────────────── */
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-14px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 18px rgba(165,33,38,0.30), 0 0 36px rgba(165,33,38,0.12); }
+  50%       { box-shadow: 0 0 34px rgba(165,33,38,0.60), 0 0 70px rgba(165,33,38,0.28); }
+}
+
+@keyframes scanLine {
+  0%   { top: -2px; opacity: 0; }
+  4%   { opacity: 0.7; }
+  96%  { opacity: 0.7; }
+  100% { top: 100%; opacity: 0; }
+}
+
+@keyframes blinkCursor {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+
+/* ─── Utility classes ────────────────────────── */
+.animate-float       { animation: floatY 5s ease-in-out infinite; }
+.animate-pulse-glow  { animation: pulseGlow 2.6s ease-in-out infinite; }
+.animate-scan-line   { animation: scanLine 9s linear infinite; }
+.animate-blink       { animation: blinkCursor 1s step-start infinite; }
+.animate-spin-slow   { animation: spinSlow 12s linear infinite; }
+
+.text-shimmer {
+  background: linear-gradient(90deg, #ffffff 25%, #a52126 50%, #ffffff 75%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
+
+.red-glow-box {
+  box-shadow: 0 0 20px rgba(165,33,38,0.30), 0 0 40px rgba(165,33,38,0.12);
+}
+
+.card-hover-glow:hover {
+  box-shadow: 0 0 28px rgba(165,33,38,0.22), 0 4px 30px rgba(0,0,0,0.4);
 }
