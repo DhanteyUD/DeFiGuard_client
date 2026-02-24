@@ -1,98 +1,127 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { motion } from "framer-motion";
 import { Shield, Zap, ArrowDown, Activity } from "lucide-react";
 
-/** Split text into individually animatable char spans */
-function SplitChars({
-  text,
-  className = "",
-}: {
-  text: string;
-  className?: string;
-}) {
-  return (
-    <>
-      {text.split("").map((char, i) => (
-        <span
-          key={i}
-          className={`char inline-block ${className}`}
-          style={{ display: char === " " ? "inline" : "inline-block" }}
-        >
-          {char === " " ? "\u00A0" : char}
-        </span>
-      ))}
-    </>
-  );
-}
+const messages = [
+  { line1: "DeFi's AI", line2: "Risk Shield" },
+  { line1: "Multi-Chain", line2: "Guardian" },
+  { line1: "Autonomous", line2: "Defender" },
+  { line1: "Real-Time", line2: "Fraud Detection" },
+];
+
+const FACE_H = 200;
+const HALF = FACE_H / 2;
+
+const DISPLAY_DURATION = 3000;
 
 const chains = ["◎ Solana", "⟠ ETH", "BNB", "MATIC", "ARB", "BASE", "+7 more"];
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const titleLine1Ref = useRef<HTMLDivElement>(null);
-  const titleLine2Ref = useRef<HTMLDivElement>(null);
   const orb1Ref = useRef<HTMLDivElement>(null);
   const orb2Ref = useRef<HTMLDivElement>(null);
   const orb3Ref = useRef<HTMLDivElement>(null);
   const scanRef = useRef<HTMLDivElement>(null);
   const shieldRingRef = useRef<HTMLDivElement>(null);
 
+  const cubeRef = useRef<HTMLDivElement>(null);
+  const [msgIdx, setMsgIdx] = useState(0);
+  const stepRef = useRef(0);
+  const spinning = useRef(false);
+
+  /* ── Ambient / background effects ── */
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* ── Ambient orb drift ── */
       gsap.to(orb1Ref.current, {
-        x: 40, y: -30, duration: 7, ease: "sine.inOut",
-        repeat: -1, yoyo: true,
+        x: 40,
+        y: -30,
+        duration: 7,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
       });
       gsap.to(orb2Ref.current, {
-        x: -35, y: 25, duration: 9, ease: "sine.inOut",
-        repeat: -1, yoyo: true, delay: 1.5,
+        x: -35,
+        y: 25,
+        duration: 9,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        delay: 1.5,
       });
       gsap.to(orb3Ref.current, {
-        x: 20, y: 40, duration: 6, ease: "sine.inOut",
-        repeat: -1, yoyo: true, delay: 3,
+        x: 20,
+        y: 40,
+        duration: 6,
+        ease: "sine.inOut",
+        repeat: -1,
+        yoyo: true,
+        delay: 3,
       });
 
-      /* ── Scan line ── */
       gsap.fromTo(
         scanRef.current,
         { top: "-2px", opacity: 0 },
         {
-          top: "100%", opacity: 0,
-          duration: 9, ease: "none",
-          repeat: -1, delay: 1,
-          onStart: () => { gsap.set(scanRef.current, { opacity: 0.65 }); },
-        }
-      );
-
-      /* ── Shield ring spin ── */
-      gsap.to(shieldRingRef.current, {
-        rotation: 360, duration: 14, ease: "none", repeat: -1,
-      });
-
-      /* ── Title char stagger ── */
-      const chars1 = titleLine1Ref.current?.querySelectorAll(".char") ?? [];
-      const chars2 = titleLine2Ref.current?.querySelectorAll(".char") ?? [];
-
-      const tl = gsap.timeline({ delay: 0.2 });
-
-      tl.from(chars1, {
-        opacity: 0, y: 50, rotateX: -80,
-        stagger: 0.045, duration: 0.55, ease: "back.out(1.5)",
-      }).from(
-        chars2,
-        {
-          opacity: 0, y: 50, rotateX: -80,
-          stagger: 0.045, duration: 0.55, ease: "back.out(1.5)",
+          top: "100%",
+          opacity: 0,
+          duration: 9,
+          ease: "none",
+          repeat: -1,
+          delay: 1,
+          onStart: () => gsap.set(scanRef.current, { opacity: 0.65 }),
         },
-        "-=0.35"
       );
+
+      gsap.to(shieldRingRef.current, {
+        rotation: 360,
+        duration: 14,
+        ease: "none",
+        repeat: -1,
+      });
     }, containerRef);
 
     return () => ctx.revert();
+  }, []);
+
+  /* ── Cube entrance ── */
+  useEffect(() => {
+    const el = cubeRef.current;
+    if (!el) return;
+    gsap.set(el, { rotateX: 30, opacity: 0 });
+    gsap.to(el, {
+      rotateX: 0,
+      opacity: 1,
+      duration: 1,
+      ease: "power3.out",
+      delay: 0.3,
+    });
+  }, []);
+
+  /* ── Cycling interval — rotate cube face ── */
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (spinning.current) return;
+      spinning.current = true;
+
+      stepRef.current -= 1;
+      const targetRotX = stepRef.current * 90;
+
+      gsap.to(cubeRef.current, {
+        rotateX: targetRotX,
+        duration: 0.75,
+        ease: "power2.inOut",
+        onComplete: () => {
+          spinning.current = false;
+          setMsgIdx((prev) => (prev + 1) % messages.length);
+        },
+      });
+    }, DISPLAY_DURATION);
+
+    return () => clearInterval(timer);
   }, []);
 
   return (
@@ -136,34 +165,92 @@ export default function HeroSection() {
         >
           <Zap className="w-3.5 h-3.5 text-[#a52126] shrink-0" />
           <span className="flex gap-1 md:gap-3 text-xs text-white/75 font-medium font-mono">
-            <p className="flex">
-              <span className="hidden md:block mr-1.5">Powered by </span>ASI:One
-            </p>
-            <p>·</p>
-            <p>SingularityNET MeTTa</p>
+            <span className="flex">
+              <span className="hidden md:inline mr-1.5">Powered by </span>
+              ASI:One
+            </span>
+            <span>·</span>
+            <span>SingularityNET MeTTa</span>
           </span>
           <span className="w-1.5 h-1.5 bg-[#a52126] rounded-full animate-pulse" />
         </motion.div>
 
-        {/* Title */}
-        <h1
-          className="font-bold leading-none tracking-tight mb-7"
-          style={{ perspective: "700px" }}
+        <div
+          className="mb-7 select-none"
+          style={{
+            perspective: "1200px",
+            perspectiveOrigin: "50% 50%",
+            height: `${FACE_H}px`,
+            overflow: "hidden",
+          }}
         >
           <div
-            ref={titleLine1Ref}
-            className="text-6xl md:text-7xl lg:text-8xl text-white block mb-2"
+            ref={cubeRef}
+            style={{
+              width: "100%",
+              height: `${FACE_H}px`,
+              position: "relative",
+              transformStyle: "preserve-3d",
+              transform: "rotateX(0deg)",
+            }}
           >
-            <SplitChars text="DeFi's AI" />
+            {messages.map((msg, i) => {
+              const faceRotX = i * 90;
+
+              return (
+                <div
+                  key={i}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    transform: `rotateX(${faceRotX}deg) translateZ(${HALF}px)`,
+                    backfaceVisibility: "hidden",
+                    background:
+                      i % 2 === 0
+                        ? "rgba(255,255,255,0.00)"
+                        : "rgba(165,33,38,0.02)",
+                  }}
+                >
+                  <span
+                    className="block font-bold leading-none tracking-tight text-6xl md:text-7xl lg:text-8xl text-white font-mono"
+                    style={{ marginBottom: "0.1em" }}
+                  >
+                    {msg.line1}
+                  </span>
+                  <span
+                    className="block font-bold leading-none tracking-tight text-6xl md:text-7xl lg:text-8xl text-[#a52126] font-mono"
+                    style={{ textShadow: "0 0 60px rgba(165,33,38,0.45)" }}
+                  >
+                    {msg.line2}
+                  </span>
+                </div>
+              );
+            })}
           </div>
-          <div
-            ref={titleLine2Ref}
-            className="text-6xl md:text-7xl lg:text-8xl text-[#a52126] block"
-            style={{ textShadow: "0 0 60px rgba(165,33,38,0.45)" }}
-          >
-            <SplitChars text="Risk Shield" />
-          </div>
-        </h1>
+        </div>
+
+        {/* Message index dots */}
+        <motion.div
+          className="flex justify-center gap-2 mb-8"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+        >
+          {messages.map((_, i) => (
+            <div
+              key={i}
+              className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+              style={{
+                background: i === msgIdx ? "#a52126" : "rgba(255,255,255,0.2)",
+                transform: i === msgIdx ? "scale(1.4)" : "scale(1)",
+              }}
+            />
+          ))}
+        </motion.div>
 
         {/* Subtitle */}
         <motion.p
@@ -236,18 +323,14 @@ export default function HeroSection() {
         transition={{ delay: 0.8, duration: 0.8 }}
       >
         <div className="relative w-28 h-28">
-          {/* Outer rotating ring */}
           <div
             ref={shieldRingRef}
             className="absolute inset-0 rounded-full border border-dashed border-[#a52126]/30"
           />
-          {/* Mid ring */}
           <div className="absolute inset-3 rounded-full border border-[#a52126]/20" />
-          {/* Shield icon */}
           <div className="absolute inset-0 flex items-center justify-center">
             <Shield className="w-12 h-12 text-[#a52126]" strokeWidth={1.2} />
           </div>
-          {/* Glow */}
           <div className="absolute inset-0 rounded-full bg-[#a52126] opacity-10 blur-2xl" />
         </div>
       </motion.div>
