@@ -6,6 +6,8 @@ import { useState } from "react";
 import Image from "next/image";
 
 const navLinks = ["Agent", "Bot", "Extension", "Docs"];
+const DOCS_URL =
+  "https://www.notion.so/DeFiGuard-2-0-Multi-Agent-Risk-Management-System-2f408c1083e8806d8582d4eef4107020";
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -68,7 +70,10 @@ export default function Navbar() {
             {navLinks.map((link, i) => (
               <motion.a
                 key={link}
-                href={`#${link.toLowerCase()}`}
+                // href={`#${link.toLowerCase()}`} // remove line 74 - 76 when doc page is setup
+                href={link === "Docs" ? DOCS_URL : `#${link.toLowerCase()}`}
+                target={link === "Docs" ? "_blank" : undefined}
+                rel={link === "Docs" ? "noopener noreferrer" : undefined}
                 className="text-white/55 hover:text-white text-sm font-medium transition-colors duration-200 relative group font-mono"
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -125,7 +130,10 @@ export default function Navbar() {
         {navLinks.map((link, i) => (
           <motion.a
             key={link}
-            href={`#${link.toLowerCase()}`}
+            // href={`#${link.toLowerCase()}`} // remove line 134 - 136 when doc page is setup
+            href={link === "Docs" ? DOCS_URL : `#${link.toLowerCase()}`}
+            target={link === "Docs" ? "_blank" : undefined}
+            rel={link === "Docs" ? "noopener noreferrer" : undefined}
             className="text-white text-2xl font-bold font-mono hover:text-[#a52126] transition-colors"
             onClick={() => setMobileOpen(false)}
             initial={{ opacity: 0, y: 20 }}
