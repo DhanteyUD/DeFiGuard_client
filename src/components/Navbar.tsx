@@ -51,8 +51,8 @@ export default function Navbar() {
                 <Image
                   src="/icons/defiguard-icon.png"
                   alt="DeFiGuard logo"
-                  width={18}
-                  height={18}
+                  width={22}
+                  height={22}
                   className="object-contain"
                   priority
                 />

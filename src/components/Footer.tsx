@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Shield, Github, Youtube, ExternalLink } from "lucide-react";
+import { Shield, Github, Youtube, ExternalLink, Mail } from "lucide-react";
+import Image from "next/image";
 
 const techPills = [
   "ASI Alliance",
@@ -9,7 +10,7 @@ const techPills = [
   "SingularityNET MeTTa",
   "Solana",
   "12 EVM Chains",
-  "Python 3.12",
+  "Security",
 ];
 
 const links = [
@@ -25,7 +26,7 @@ const links = [
   },
   {
     label: "ASI:One",
-    href: "https://asi1.ai",
+    href: "https://asi1.ai/ai/agent1q2zusjcsgluu9pkkf9g2fn5lyqnaf9jqlhm3smlhvqcd6nct46ezy2qvm2l",
     Icon: ExternalLink,
   },
 ];
@@ -33,12 +34,9 @@ const links = [
 export default function Footer() {
   return (
     <footer className="relative bg-[#1e1c28] border-t border-[#a52126]/18 overflow-hidden">
-      {/* Top glow */}
-      <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-[#a52126]/50 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-[#a52126]/50 to-transparent" />
 
-      {/* Ambient orb */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#a52126] opacity-[0.04] blur-[80px] pointer-events-none rounded-full" />
-
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-150 h-50 bg-[#a52126] opacity-[0.04] blur-[80px] pointer-events-none rounded-full" />
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-14">
 
         {/* Main row */}
@@ -52,18 +50,37 @@ export default function Footer() {
             viewport={{ once: true }}
           >
             <div className="flex items-center gap-2">
-              <div className="relative">
-                <Shield className="w-6 h-6 text-[#a52126]" strokeWidth={1.7} />
-                <div className="absolute inset-0 bg-[#a52126] opacity-20 blur-md rounded-full" />
+              <div className="relative w-6 h-6">
+                <Shield
+                  className="absolute inset-0 w-full h-full text-[#a52126]"
+                  strokeWidth={1.5}
+                />
+                <div className="absolute inset-0 flex items-center justify-center pt-0.5">
+                  <Image
+                    src="/icons/defiguard-icon.png"
+                    alt="DeFiGuard logo"
+                    width={16}
+                    height={16}
+                    className="object-contain"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-[#a52126] opacity-20 blur-lg rounded-full pointer-events-none" />
               </div>
-              <span className="text-white font-bold text-lg tracking-wide">
+              <span className="text-white font-bold text-xl tracking-wide font-mono">
                 DeFi<span className="text-[#a52126]">Guard</span>
               </span>
             </div>
-            <p className="text-white/35 text-xs max-w-[220px] text-center md:text-left leading-relaxed">
+            <p className="text-white/35 text-xs max-w-55 text-center md:text-left leading-relaxed">
               AI-powered multi-chain DeFi portfolio risk monitoring with
               autonomous agents.
             </p>
+            <a
+              href="mailto:defiguard.agent@gmail.com"
+              className="flex items-center gap-1.5 text-white/35 hover:text-[#a52126] text-xs transition-colors duration-200"
+            >
+              <Mail className="w-3 h-3" />
+              defiguard.agent@gmail.com
+            </a>
           </motion.div>
 
           {/* Links */}
@@ -89,7 +106,6 @@ export default function Footer() {
             ))}
           </motion.div>
 
-          {/* MIT badge */}
           <motion.p
             className="text-white/28 text-xs"
             initial={{ opacity: 0 }}
@@ -121,7 +137,7 @@ export default function Footer() {
           {techPills.map((tech, i) => (
             <motion.span
               key={tech}
-              className="text-[11px] px-3 py-1 bg-white/[0.04] border border-white/10 rounded-full text-white/35 hover:border-[#a52126]/35 hover:text-white/60 transition-colors cursor-default"
+              className="text-[11px] px-3 py-1 bg-white/4 border border-white/10 rounded-full text-white/35 hover:border-[#a52126]/35 hover:text-white/60 transition-colors cursor-default"
               initial={{ opacity: 0, scale: 0.85 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
@@ -132,7 +148,6 @@ export default function Footer() {
           ))}
         </motion.div>
 
-        {/* Bottom copyright */}
         <motion.p
           className="text-center text-white/20 text-[11px] mt-10"
           initial={{ opacity: 0 }}
