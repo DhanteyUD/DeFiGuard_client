@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# DeFiGuard
+
+**AI-powered, multi-agent DeFi portfolio risk monitoring platform.** Real-time fraud detection and autonomous alerts across 13 blockchains — powered by ASI:One and SingularityNET MeTTa.
+
+> Colosseum Cypherpunk Hackathon Winner | ASI Alliance Participant
+
+---
+
+## Features
+
+- **AI Agent** — Multi-agent system monitoring DeFi portfolios 24/7 with MeTTa AI risk scoring, rug-pull detection, and autonomous real-time alerts across Solana + 12 EVM chains
+- **Telegram Bot** (@DeFiGuard_Bot) — Instant risk & breach alerts, high-risk token warnings, on-demand portfolio checks, and natural language commands
+- **Chrome Extension** — Real-time token scanning on DeFi sites with on-page risk indicators and scam detection
+
+## Tech Stack
+
+- **Next.js 15** (Turbopack) + **React 19** + **TypeScript**
+- **Tailwind CSS 4** — Styling
+- **Framer Motion** + **GSAP** — Animations
+- **Lucide React** — Icons
+- **Axios** — HTTP client
+- **Next-PWA** — Progressive Web App support
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to view the app.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Scripts
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Command | Description |
+|---------|-------------|
+| `npm run dev` | Start development server with Turbopack |
+| `npm run build` | Create production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+DeFiGuard_client/
+├── app/              # Next.js App Router pages
+├── components/       # Reusable UI components
+│   ├── Navbar.tsx
+│   ├── Hero.tsx
+│   ├── StatsBar.tsx
+│   ├── Features.tsx
+│   └── Footer.tsx
+├── public/           # Static assets
+└── styles/           # Global styles
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Stats
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+| Metric | Value |
+|--------|-------|
+| Chains Monitored | 13 |
+| AI Agents | 5 |
+| Monitoring | 24/7 |
+| Risk Indicators | 100+ |
