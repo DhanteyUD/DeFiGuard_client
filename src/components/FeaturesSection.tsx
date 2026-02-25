@@ -80,7 +80,7 @@ const features: Feature[] = [
       { icon: Eye, text: "Fraud & rug-pull detection" },
       { icon: Bell, text: "Autonomous real-time alerts" },
     ],
-    cta: "Connect via ASI:One",
+    cta: "Connect",
     ctaHref:
       "https://asi1.ai/ai/agent1q2zusjcsgluu9pkkf9g2fn5lyqnaf9jqlhm3smlhvqcd6nct46ezy2qvm2l",
     enterFrom: { x: -70, y: 0 },
