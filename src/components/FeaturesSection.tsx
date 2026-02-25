@@ -61,8 +61,8 @@ function useCountdown(target?: Date) {
   return { days, hours, minutes, seconds, done: timeLeft === 0 };
 }
 
-// 10 days from today (Feb 25 2026) → March 4 2026
-const TELEGRAM_RELEASE = new Date("2026-03-07T00:00:00Z");
+// 20 days from today (Feb 25 2026) → March 17 2026
+const TELEGRAM_RELEASE = new Date("2026-03-17T00:00:00Z");
 
 const features: Feature[] = [
   {
